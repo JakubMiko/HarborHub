@@ -1,6 +1,5 @@
 class Owner < ApplicationRecord
-
-  def full_name
-    "#{first_name} #{last_name}"
+  def coordinates
+    [ rand(90), rand(90) ]
   end
 end
