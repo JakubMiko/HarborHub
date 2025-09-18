@@ -38,5 +38,11 @@ module Types
     def owner(id:)
       Owner.find_by(id: id)
     end
+
+    field :owners, [ Types::OwnerType ], null: false
+
+    def owners
+      Owner.all
+    end
   end
 end
