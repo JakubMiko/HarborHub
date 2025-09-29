@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_15_213455) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_10_124726) do
   create_table "owners", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -18,5 +18,39 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_213455) do
     t.boolean "is_verified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "street"
+    t.string "number"
+    t.string "city"
+    t.string "postcode"
+    t.string "country"
   end
+
+  create_table "stays", force: :cascade do |t|
+    t.integer "vessel_id", null: false
+    t.integer "owner_id", null: false
+    t.text "description"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_stays_on_owner_id"
+    t.index ["vessel_id"], name: "index_stays_on_vessel_id"
+  end
+
+  create_table "vessels", force: :cascade do |t|
+    t.integer "owner_id", null: false
+    t.string "name"
+    t.float "length"
+    t.string "breath_number"
+    t.date "paid_until"
+    t.boolean "is_on_shore", default: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_vessels_on_owner_id"
+  end
+
+  add_foreign_key "stays", "owners"
+  add_foreign_key "stays", "vessels"
+  add_foreign_key "vessels", "owners"
 end
